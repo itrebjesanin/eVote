@@ -33,7 +33,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
@@ -44,7 +44,12 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = new User;
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = Hash::make($request->input('password'));
+        $user->save();
+        return redirect()->route('users.index')->with('success', 'User added!');
     }
 
     /**
@@ -64,9 +69,10 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        $user = User::findOrFail($user->id);
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -76,9 +82,13 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, User $user)
     {
-        //
+        $user = User::findOrFail($user->id);
+        $user->name = $request->input('name');
+        $user->email = $request->input('email');
+        $user->password = $request->input !== '' ? Hash::make($request->input('password')) : $user->password;
+        $user->save();
     }
 
     /**
@@ -89,7 +99,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        $user->delete();
     }
 
     public function sendEmail() {
