@@ -37,6 +37,6 @@ class VotingController extends Controller
         auth()->user()->voted = 1;
         auth()->user()->save();
         
-        return redirect('home')->with('success','Thank you for voting!');
+        return redirect()->route('home')->with('success','Thank you for voting!');
     }
 }

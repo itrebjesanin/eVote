@@ -17,7 +17,12 @@
                     {{$candidate->name}}
                     <div class="float-right">
                         <a href="/candidates/{{$candidate->id}}/edit" class="btn btn-sm btn-primary">Edit</a>
-                        <a href="/candidates/{{$candidate->id}}" class="btn btn-sm btn-danger">Delete</a>
+                        
+                        <form id="delete-form-{{$candidate->id}}" style="display:inline" id="delete-form" action="/candidates/{{$candidate->id}}" method="post">
+                            @csrf
+                            @method('delete')
+                            <a href="" class="btn btn-sm btn-danger" onclick="if(confirm('Want to delete?')){document.getElementById('delete-form-{{$candidate->id}}').submit()}">Delete</a>
+                        </form>
                     </div>
                 </li>
                 @endforeach
