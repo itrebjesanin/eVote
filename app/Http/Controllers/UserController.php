@@ -87,7 +87,7 @@ class UserController extends Controller
         $user = User::findOrFail($user->id);
         $user->name = $request->input('name');
         $user->email = $request->input('email');
-        //$user->password = $request->input('password') !== '' ? Hash::make($request->input('password')) : $user->password;
+        $user->password = $request->input('password') !== '' ? Hash::make($request->input('password')) : $user->password;
         $user->save();
         return redirect()->route('users.index')->with('success', 'User data saved!');
     }
