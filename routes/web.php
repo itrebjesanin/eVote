@@ -26,3 +26,7 @@ Route::resource('/candidates', 'CandidateController')->middleware('can:admin');
 Route::resource('/users', 'UserController')->middleware('can:admin');
 
 //Route::get('/send', 'UserController@sendEmail');
+
+Route::get('/setup', 'VotingController@setup');
+
+Route::post('/set', 'VotingController@setMaxSelect');

@@ -13,6 +13,7 @@
                     @can('admin')
                     <li><a class="nav-link" href="/candidates">Candidates</a></li>
                     <li><a class="nav-link" href="/users">Users</a></li>
+                    <li><a class="nav-link" href="/setup">Setup</a></li>
                     @endcan
                 </ul>
 

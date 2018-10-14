@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Candidate;
+use App\Setting;
 
 class VotingController extends Controller
 {
@@ -39,4 +40,29 @@ class VotingController extends Controller
         
         return redirect()->route('home')->with('success','Thank you for voting!');
     }
+
+    public function setup() {
+        $settings = Setting::first();
+        if($settings){
+            $settings = Setting::first();
+        } else {
+            $settings = new Setting;
+        }
+        return view('voting.setup', compact('settings'));
+    }
+
+    public function setMaxSelect(Request $request) {
+        $settings = Setting::first();
+        if($settings){
+            $settings->maxSelect = $request->max;
+            $settings->save();
+            return redirect()->back()->with('success', 'Settings saved!');
+        } else {
+            $settings = new Setting;
+            $settings->maxSelect = $request->max;
+            $settings->save();
+            return redirect()->back()->with('success', 'Settings saved!');
+        }
+    }
+
 }
